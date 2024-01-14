@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html>
+	<head>
+        <title>TSE-MOS</title>
+		<meta charset="utf-8">
+
+        <!-- <style> 
+            body{text-align:center} 
+        </style>  -->
+        
+        <link rel="stylesheet" href="index.css" />
+    </head>
+    
+    <body>
+        <div class="header">
+            <h1 class="mt-5">TSE-MOS</h1>
+        </div>
+
+        <div class="narrow-container">
+            <h2>1.MOS分评分标准</h2>
+            <p>测试目的：测试NBF算法处理之后语音的MOS分，参考目标语音和混合语音</p>
+            <p>提供目标音频，算法处理前的原始音频，可以减少处理后的音频打分过低，提供参考标准</p>
+            <p>MOS由一个有理数表示(<b>打分时可包含小数</b>)。MOS分通常范围在1~5之间，其中1表示最低感知质量，5表示最高感知质量。<b>受试者可参考下表的主观听感感受，进行MOS打分。</b></p>
+
+            <table class="bordered-table">
+                <tbody>
+                    <tr>
+                        <th>级别MOS值</th>
+                        <th>MOS值</th>
+                        <th>用户满意度</th>
+                    </tr>
+                    <tr>
+                        <td>优</td>
+                        <td>4.0 ~ 5.0</td>
+                        <td>很好，听得清楚，目标语音很清晰，目标语音失真很小，干扰和噪声残留微弱</td>
+                    </tr>
+                    <tr>
+                        <td>良</td>
+                        <td>3.5 ~ 4.0</td>
+                        <td>稍差，听得清楚，目标语音清晰度稍欠缺，目标语音失真较小，有较小残留人声和噪声</td>
+                    </tr>
+                    <tr>
+                        <td>中</td>
+                        <td>3.0 ~ 3.5</td>
+                        <td>还可以，听不太清，目标语音有一定失真，杂音和噪声残留明显</td>
+                    </tr>
+                    <tr>
+                        <td>差</td>
+                        <td>1.5 ~ 3.0</td>
+                        <td>勉强，失真较大，杂音和噪声残留较大</td>
+                    </tr>
+                    <tr>
+                        <td>劣</td>
+                        <td>0 ~ 1.5</td>
+                        <td>极差，听不懂，目标失真过度，噪声和干扰几乎没有分离</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            其中，音质较差主要考虑以下因素：
+            <ul>
+                <li>分离后的信号失真严重，不连续</li>
+                <li>干扰残留较大</li>
+                <li>噪声抑制较差</li>
+            </ul>
+            
+            <h2>2.打分案例</h2>
+            其中：
+            <ul>
+                <li>目标音频：表示期望方向的<b>原始干净语料</b>，没有任何算法处理</li>
+                <li>原始输入：表示<b>期望方向的语音 + 干扰语音/噪声</b>经过麦克风阵列拾取的混合语音</li>
+                <li>打分音频：表示麦克风阵列拾取到的混合语音<b>经过定向拾音算法处理</b>之后的语音</li>
+            </ul>
+            <p>Note: 测听音频中，<b>目标音频和打分音频起始段、中间端会存在静音，是因为这部分混合了干扰语音，测试算法的干扰消除能力</b></p>
+            
+            <h3>语料示例(MOS分：4.0)</h3>
+            <table class="no-border-table">
+                <tbody>
+                    <tr>
+                        <th>目标音频</th>
+                        <th>原始音频</th>
+                        <th>打分音频</th>
+                    </tr>
+                    <tr>
+                        <td class='auto-style'>
+                            <div class="audio">
+                                <audio controls>
+                                    <source src="samples/demo/test_demo_target.wav", type="audio/wav">
+                                    Your browser does not support the audio element.
+                                </audio>
+                            </div>
+                        </td>
+                        <td class='auto-style'>
+                            <div class="audio">
+                                <audio controls>
+                                    <source src="samples/demo/test_demo_mix.wav", type="audio/wav">
+                                    Your browser does not support the audio element.
+                                </audio>
+                            </div>
+                        </td>
+                        <td class='auto-style'>
+                            <div class="audio">
+                                <audio controls>
+                                    <source src="samples/demo/test_demo_enh.wav", type="audio/wav">
+                                    Your browser does not support the audio element.
+                                </audio>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h2>3.测听音频</h2>
+            <div class="comparisons-desktop" align="left">
+                <h3>测听音频1</h3>
+                场景：目标说话人 + 干扰噪声，测试指定方向的拾音效果
+                <table class="no-border-table">
+                    <tbody>
+                        <tr>
+                            <th>目标音频</th>
+                            <th>原始音频</th>
+                            <th>打分音频</th>
+                        </tr>
+                        <tr>
+                            <td class='auto-style'>
+                                <div class="audio">
+                                    <audio controls>
+                                        <source src="samples/01/test_01_target.wav", type="audio/wav">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                </div>
+                            </td>
+                            <td class='auto-style'>
+                                <div class="audio">
+                                    <audio controls>
+                                        <source src="samples/01/test_01_mix.wav", type="audio/wav">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                </div>
+                            </td>
+                            <td class='auto-style'>
+                                <div class="audio">
+                                    <audio controls>
+                                        <source src="samples/01/test_01_enh.wav", type="audio/wav">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <br>
+ 
+                <h3>测听音频2</h3>
+                场景：目标说话人 + 干扰人声，非重叠，测试非期望方向的干扰语音消除效果
+                <table class="no-border-table">
+                    <tbody>
+                        <tr>
+                            <th>目标音频</th>
+                            <th>原始音频</th>
+                            <th>打分音频</th>
+                        </tr>
+                        <tr>
+                            <td class='auto-style'>
+                                <div class="audio">
+                                    <audio controls>
+                                        <source src="samples/02/test_02_target.wav", type="audio/wav">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                </div>
+                            </td>
+                            <td class='auto-style'>
+                                <div class="audio">
+                                    <audio controls>
+                                        <source src="samples/02/test_02_mix.wav", type="audio/wav">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                </div>
+                            </td>
+                            <td class='auto-style'>
+                                <div class="audio">
+                                    <audio controls>
+                                        <source src="samples/02/test_02_enh.wav", type="audio/wav">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <br>
+
+                <h3>测听音频3</h3>
+                场景：目标说话人 + 强干扰噪声，测试非期望方向的干扰噪声消除效果
+                <table class="no-border-table">
+                    <tbody>
+                        <tr>
+                            <th>目标音频</th>
+                            <th>原始音频</th>
+                            <th>打分音频</th>
+                        </tr>
+                        <tr>
+                            <td class='auto-style'>
+                                <div class="audio">
+                                    <audio controls>
+                                        <source src="samples/03/test_03_target.wav", type="audio/wav">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                </div>
+                            </td>
+                            <td class='auto-style'>
+                                <div class="audio">
+                                    <audio controls>
+                                        <source src="samples/03/test_03_mix.wav", type="audio/wav">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                </div>
+                            </td>
+                            <td class='auto-style'>
+                                <div class="audio">
+                                    <audio controls>
+                                        <source src="samples/03/test_03_enh.wav", type="audio/wav">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <br>
+
+                <h3>测听音频4</h3>
+                场景：目标说话人 + 单个干扰人 + 干扰噪声
+                <table class="no-border-table">
+                    <tbody>
+                        <tr>
+                            <th>目标音频</th>
+                            <th>原始音频</th>
+                            <th>打分音频</th>
+                        </tr>
+                        <tr>
+                            <td class='auto-style'>
+                                <div class="audio">
+                                    <audio controls>
+                                        <source src="samples/04/test_04_target.wav", type="audio/wav">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                </div>
+                            </td>
+                            <td class='auto-style'>
+                                <div class="audio">
+                                    <audio controls>
+                                        <source src="samples/04/test_04_mix.wav", type="audio/wav">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                </div>
+                            </td>
+                            <td class='auto-style'>
+                                <div class="audio">
+                                    <audio controls>
+                                        <source src="samples/04/test_04_enh.wav", type="audio/wav">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <br>
+
+                <h3>测听音频5</h3>
+                场景：目标说话人 + 两个干扰人 + 干扰噪声
+                <table class="no-border-table">
+                    <tbody>
+                        <tr>
+                            <th>目标音频</th>
+                            <th>原始音频</th>
+                            <th>打分音频</th>
+                        </tr>
+                        <tr>
+                            <td class='auto-style'>
+                                <div class="audio">
+                                    <audio controls>
+                                        <source src="samples/05/test_05_target.wav", type="audio/wav">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                </div>
+                            </td>
+                            <td class='auto-style'>
+                                <div class="audio">
+                                    <audio controls>
+                                        <source src="samples/05/test_05_mix.wav", type="audio/wav">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                </div>
+                            </td>
+                            <td class='auto-style'>
+                                <div class="audio">
+                                    <audio controls>
+                                        <source src="samples/05/test_05_enh.wav", type="audio/wav">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <br>
+
+                <h3>测听音频6</h3>
+                场景：目标说话人 + 单个干扰人 + 干扰噪声
+                <table class="no-border-table">
+                    <tbody>
+                        <tr>
+                            <th>目标音频</th>
+                            <th>原始音频</th>
+                            <th>打分音频</th>
+                        </tr>
+                        <tr>
+                            <td class='auto-style'>
+                                <div class="audio">
+                                    <audio controls>
+                                        <source src="samples/06/test_06_target.wav", type="audio/wav">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                </div>
+                            </td>
+                            <td class='auto-style'>
+                                <div class="audio">
+                                    <audio controls>
+                                        <source src="samples/06/test_06_mix.wav", type="audio/wav">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                </div>
+                            </td>
+                            <td class='auto-style'>
+                                <div class="audio">
+                                    <audio controls>
+                                        <source src="samples/06/test_06_enh.wav", type="audio/wav">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <br>
+
+                <h3>测听音频7</h3>
+                场景：目标说话人 + 两个干扰人(-2dB) ，重叠，强混响
+                <table class="no-border-table">
+                    <tbody>
+                        <tr>
+                            <th>目标音频</th>
+                            <th>原始音频</th>
+                            <th>打分音频</th>
+                        </tr>
+                        <tr>
+                            <td class='auto-style'>
+                                <div class="audio">
+                                    <audio controls>
+                                        <source src="samples/07/test_07_target.wav", type="audio/wav">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                </div>
+                            </td>
+                            <td class='auto-style'>
+                                <div class="audio">
+                                    <audio controls>
+                                        <source src="samples/07/test_07_mix.wav", type="audio/wav">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                </div>
+                            </td>
+                            <td class='auto-style'>
+                                <div class="audio">
+                                    <audio controls>
+                                        <source src="samples/07/test_07_enh.wav", type="audio/wav">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <br>
+
+                <h3>测听音频8</h3>
+                场景：目标说话人 + 两个干扰人(0 dB) + 干扰噪声
+                <table class="no-border-table">
+                    <tbody>
+                        <tr>
+                            <th>目标音频</th>
+                            <th>原始音频</th>
+                            <th>打分音频</th>
+                        </tr>
+                        <tr>
+                            <td class='auto-style'>
+                                <div class="audio">
+                                    <audio controls>
+                                        <source src="samples/08/test_08_target.wav", type="audio/wav">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                </div>
+                            </td>
+                            <td class='auto-style'>
+                                <div class="audio">
+                                    <audio controls>
+                                        <source src="samples/08/test_08_mix.wav", type="audio/wav">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                </div>
+                            </td>
+                            <td class='auto-style'>
+                                <div class="audio">
+                                    <audio controls>
+                                        <source src="samples/08/test_08_enh.wav", type="audio/wav">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <br>
+
+                <h3>测听音频9</h3>
+                场景：目标说话人 + 三个干扰人 + 干扰噪声
+                <table class="no-border-table">
+                    <tbody>
+                        <tr>
+                            <th>目标音频</th>
+                            <th>原始音频</th>
+                            <th>打分音频</th>
+                        </tr>
+                        <tr>
+                            <td class='auto-style'>
+                                <div class="audio">
+                                    <audio controls>
+                                        <source src="samples/09/test_09_target.wav", type="audio/wav">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                </div>
+                            </td>
+                            <td class='auto-style'>
+                                <div class="audio">
+                                    <audio controls>
+                                        <source src="samples/09/test_09_mix.wav", type="audio/wav">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                </div>
+                            </td>
+                            <td class='auto-style'>
+                                <div class="audio">
+                                    <audio controls>
+                                        <source src="samples/09/test_09_enh.wav", type="audio/wav">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <br>
+
+                <h3>测听音频10</h3>
+                场景：目标说话人 + 三个干扰人 + 干扰噪声(-4dB)
+                <table class="no-border-table">
+                    <tbody>
+                        <tr>
+                            <th>目标音频</th>
+                            <th>原始音频</th>
+                            <th>打分音频</th>
+                        </tr>
+                        <tr>
+                            <td class='auto-style'>
+                                <div class="audio">
+                                    <audio controls>
+                                        <source src="samples/10/test_10_target.wav", type="audio/wav">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                </div>
+                            </td>
+                            <td class='auto-style'>
+                                <div class="audio">
+                                    <audio controls>
+                                        <source src="samples/10/test_10_mix.wav", type="audio/wav">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                </div>
+                            </td>
+                            <td class='auto-style'>
+                                <div class="audio">
+                                    <audio controls>
+                                        <source src="samples/10/test_10_enh.wav", type="audio/wav">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    <br>
+
+    </body>
+</html>		
